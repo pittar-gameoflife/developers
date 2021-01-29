@@ -1,0 +1,175 @@
+apiVersion: 1.0.0
+metadata:
+ generateName: gameoflife-
+projects:
+  - name: decisions
+    source:
+      location: 'https://github.com/pittar-gameoflife/decisions.git'
+      type: 'git'
+  - name: supervisor
+    source:
+      location: 'https://github.com/pittar-gameoflife/supervisor.git'
+      type: 'git'
+  - name: web-ui
+    source:
+      location: 'https://github.com/pittar-gameoflife/web-ui.git'
+      type: 'git'
+  - name: manifests
+    source:
+      location: 'https://github.com/pittar-gameoflife/gitops.git'
+      type: 'git'
+components:
+ -
+  type: chePlugin
+  id: redhat/quarkus-java11/latest
+ -
+  type: dockerimage
+  alias: maven
+  image: >-
+   registry.redhat.io/codeready-workspaces/plugin-java11-rhel8:latest
+  env:
+   -
+    name: JAVA_OPTS
+    value: >-
+     -XX:MaxRAMPercentage=50.0 -XX:+UseParallelGC -XX:MinHeapFreeRatio=10
+     -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
+     -Dsun.zip.disableMemoryMapping=true -Xms512m
+     -Djava.security.egd=file:/dev/./urandom -Duser.home=/home/jboss
+   -
+    name: MAVEN_OPTS
+    value: $(JAVA_OPTS)
+  memoryLimit: 2G
+  mountSources: true
+  volumes:
+   -
+    name: m2
+    containerPath: /home/jboss/.m2
+  endpoints:
+   -
+    name: web-ui
+    port: 8080
+    attributes:
+      path: /grid.html
+      discoverable: "false"
+      public: "true"
+      protocol: http
+   -
+    name: decisions
+    port: 8081
+    attributes:
+      discoverable: "true"
+      public: "false"
+      protocol: http
+   -
+    name: supervisor
+    port: 8082
+    attributes:
+      discoverable: "true"
+      public: "false"
+      protocol: http
+ - 
+  type: kubernetes
+  reference: codeready/crw-kafka.yaml
+commands:
+ -
+  name: 1. UI - Package application
+  actions:
+   -
+    type: exec
+    component: maven
+    command: mvn package
+    workdir: '${CHE_PROJECTS_ROOT}/web-ui'
+ -
+  name: 1. Decisions - Package application
+  actions:
+   -
+    type: exec
+    component: maven
+    command: mvn package
+    workdir: '${CHE_PROJECTS_ROOT}/decisions'
+ -
+  name: 1. Supervisor - Package application
+  actions:
+   -
+    type: exec
+    component: maven
+    command: mvn package
+    workdir: '${CHE_PROJECTS_ROOT}/supervisor'
+ -
+  name: 2. UI - Start Quarkus in devmode (hot deploy + debug)
+  actions:
+   -
+    type: exec
+    component: maven
+    command: 'mvn compile quarkus:dev -Ddev.kafka.bootstrap.servers=kafka:9092 -Ddebug=5006'
+    workdir: '${CHE_PROJECTS_ROOT}/web-ui'
+ -
+  name: 2. Decisions - Start Quarkus in devmode (hot deploy + debug)
+  actions:
+   -
+    type: exec
+    component: maven
+    command: 'mvn compile quarkus:dev -Ddev.kafka.bootstrap.servers=kafka:9092 -Ddebug=5007'
+    workdir: '${CHE_PROJECTS_ROOT}/decisions'
+ -
+  name: 2. Supervisor - Start Quarkus in devmode (hot deploy + debug)
+  actions:
+   -
+    type: exec
+    component: maven
+    command: 'mvn compile quarkus:dev -Ddev.kafka.bootstrap.servers=kafka:9092 -Ddebug=5008'
+    workdir: '${CHE_PROJECTS_ROOT}/supervisor'
+ -
+  name: 3. UI - Attach remote debugger
+  actions:
+   -
+    type: vscode-launch
+    referenceContent: |
+     {
+       "version": "0.2.0",
+       "configurations": [
+         {
+           "type": "java",
+           "request": "attach",
+           "name": "Attach to Remote Quarkus App",
+           "hostName": "localhost",
+           "port": 5006
+         }
+       ]
+     }
+ -
+  name: 3. Decisions - Attach remote debugger
+  actions:
+   -
+    type: vscode-launch
+    referenceContent: |
+     {
+       "version": "0.2.0",
+       "configurations": [
+         {
+           "type": "java",
+           "request": "attach",
+           "name": "Attach to Remote Quarkus App",
+           "hostName": "localhost",
+           "port": 5007
+         }
+       ]
+     }
+ -
+  name: 3. Supervisor - Attach remote debugger
+  actions:
+   -
+    type: vscode-launch
+    referenceContent: |
+     {
+       "version": "0.2.0",
+       "configurations": [
+         {
+           "type": "java",
+           "request": "attach",
+           "name": "Attach to Remote Quarkus App",
+           "hostName": "localhost",
+           "port": 5008
+         }
+       ]
+     }
