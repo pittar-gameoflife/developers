@@ -1,5 +1,7 @@
 # Game of Life - Developer Docs and Workspace Configuration
 
+[Open Workspace](https://codeready-openshift-workspaces.apps.cluster-81f2.81f2.example.opentlc.com/f?url=https://github.com/pittar-gameoflife/developers.git)
+
 ## Table of Contents
 
 1. [Architecture](#architecture)
