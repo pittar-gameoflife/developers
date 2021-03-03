@@ -185,5 +185,5 @@ commands:
     - 
       workdir: '${CHE_PROJECTS_ROOT}'
       type: exec
-      command: oc start-build gameoflife-ui -n gameoflife --follow
+      command: oc start-build gameoflife-ui -n gameoflife
       component: maven
