@@ -38,7 +38,7 @@ components:
    -
     name: MAVEN_OPTS
     value: $(JAVA_OPTS)
-  memoryLimit: 2G
+  memoryLimit: 3G
   mountSources: true
   volumes:
    -
@@ -71,6 +71,13 @@ components:
   type: kubernetes
   reference: codeready/crw-kafka.yaml
 commands:
+ - name: 0. Log into OpenShift
+   actions:
+    - 
+      workdir: '${CHE_PROJECTS_ROOT}'
+      type: exec
+      command: oc login ${KUBERNETES_SERVICE_HOST}
+      component: oc
  -
   name: 1. UI - Package application
   actions:
