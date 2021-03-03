@@ -1,6 +1,7 @@
 # Game of Life - Developer Docs and Workspace Configuration
 
-[Open Workspace](https://codeready-openshift-workspaces.apps.cluster-11b4.11b4.sandbox1706.opentlc.com/f?url=https://github.com/pittar-gameoflife/developers.git)
+[Open Workspace](https://codeready-openshift-workspaces.apps.cluster-11b4.11b4.sandbox1706.opentlc.com/f?url=https://github.com/pittar-gameoflife/developers.git)[![Start Coding!](developer-workspace.svg)](https://codeready-openshift-workspaces.apps.cluster-11b4.11b4.sandbox1706.opentlc.com/f?url=https://github.com/pittar-gameoflife/developers.gito)
+
 
 ## Table of Contents
 
