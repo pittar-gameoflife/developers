@@ -77,7 +77,7 @@ commands:
       workdir: '${CHE_PROJECTS_ROOT}'
       type: exec
       command: oc login ${KUBERNETES_SERVICE_HOST}
-      component: oc
+      component: maven
  -
   name: 1. UI - Package application
   actions:
