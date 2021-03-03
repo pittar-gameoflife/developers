@@ -1,6 +1,6 @@
 # Game of Life - Developer Docs and Workspace Configuration
 
-[Open Workspace](https://codeready-openshift-workspaces.apps.cluster-81f2.81f2.example.opentlc.com/f?url=https://github.com/pittar-gameoflife/developers.git)
+[Open Workspace](https://codeready-openshift-workspaces.apps.cluster-11b4.11b4.sandbox1706.opentlc.com/f?url=https://github.com/pittar-gameoflife/developers.git)
 
 ## Table of Contents
 
@@ -8,7 +8,7 @@
 2. [Local Development](#local-development)
 3. [Cloud Development - CodeReady Workspaces](#cloud)
 
-### <a href="#architecture>Architecture</a>
+### <a href="#architecture">Architecture</a>
 
 This application is composed of three individual services that are loosly coupled using Kafka.
 
