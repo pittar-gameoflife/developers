@@ -5,9 +5,9 @@ Open Workspace [![Open Workspace!](images/workspaces.svg)](https://codeready-ope
 
 ## Table of Contents
 
-1. [Architecture](#architecture)
-2. [Local Development](#local-development)
-3. [Cloud Development - CodeReady Workspaces](#cloud)
+1. [Architecture](#architecture)2
+2. [Cloud Development - CodeReady Workspaces](#cloud)
+3. [Local Development](#local-development)
 
 ### <a href="#architecture">Architecture</a>
 
@@ -20,3 +20,22 @@ This application is composed of three individual services that are loosly couple
 **Decisions:** This service listens on the `life-questions` topic for `Lifeform`s.  As it receives `Lifeform`s, it applies the rules from [Conway's Game of Life]() and sends the next version of the `Lifeform` back out on the `life-answers` topic.  Since the Supervisor will be sending 2400 messages, there will be 2400 messages sent back.
 
 This is intentionally over engineered!  The purpose is to demonstrate developing and deploying an Event Driven Architcture with some imperative components both locally and in a cloud environment in a consistent and easy to consume fasion.
+
+### <a href="#cloud">Cloud Development</a>
+
+Simply click the "Open Workspace" link at the top of this page to launch your personal workspace in CodeReady Workspaces. This will include:
+
+* IDE
+* All required git repositories
+* A single-node Kafka instance
+* Standard IDE plugins
+* Commands to build and start each service.
+
+### <a href="#local-development">Local Development</a>
+
+Provided you have JDK11, Maven 3.6, and docker compose installed locally, you can run the application by:
+
+* Cloning all repositories
+* Starting a local single-node Kafaka instance with docker-compose.
+* Start each service, making sure to specificy a different debug port for each.
+
