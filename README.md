@@ -5,7 +5,7 @@ Open Workspace [![Open Workspace!](images/workspaces.svg)](https://codeready-ope
 
 ## Table of Contents
 
-1. [Architecture](#architecture)2
+1. [Architecture](#architecture)
 2. [Cloud Development - CodeReady Workspaces](#cloud)
 3. [Local Development](#local-development)
 
