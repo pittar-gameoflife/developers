@@ -180,3 +180,10 @@ commands:
          }
        ]
      }
+ - name: 4. Start UI Build
+   actions:
+    - 
+      workdir: '${CHE_PROJECTS_ROOT}'
+      type: exec
+      command: oc start-build gameoflife-ui -n gameoflife --follow
+      component: maven
