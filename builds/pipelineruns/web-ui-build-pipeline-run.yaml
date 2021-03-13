@@ -1,0 +1,21 @@
+kind: PipelineRun
+apiVersion: tekton.dev/v1beta1
+metadata:
+  generateName: web-ui-build-and-rollout-run-
+spec:
+  pipelineRef:
+    name: web-ui-build-and-rollout
+  params:
+    - name: "git-url"
+      value: "https://github.com/pittar-gameoflife/web-ui.git"
+    - name: "git-revision"
+      value: "master"
+    - name: "app-name"
+      value: "web-ui"
+  workspaces:
+    - name: shared-workspace
+      persistentVolumeClaim:
+        claimName: web-ui-workspace
+    - name: maven-settings-cm
+      configMap:
+        name: maven-settings-cm
