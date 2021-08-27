@@ -12,7 +12,7 @@ spec:
     - name: "git-url"
       value: "https://github.com/pittar-gameoflife/web-ui.git"
     - name: "git-revision"
-      value: "master"
+      value: "main"
     - name: "app-name"
       value: "web-ui"
   workspaces:
